@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/styles/main.css">
+  <title>Rain Checker</title>
+</head>
+
+<body>
+
+  <div class="weather-card">
+    <h1>Rain Checker</h1>
+
+    <% if (locals.weather) { %>
+      <div class="result-box">
+        <p>Tomorrow Status:</p>
+        <h2><%= weather %></h2>
+      </div>
+    <% } %>
+
+    <form action="/submit" method="POST">
+
+      <div class="input-group">
+        <input 
+          type="text" 
+          name="regionName" 
+          placeholder="Enter region name..."
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <input 
+          type="text" 
+          name="cityName" 
+          placeholder="Enter city name..."
+          required
+        />
+      </div>
+
+      <button type="submit">Check Weather</button>
+
+    </form>
+  </div>
+
+</body>
+</html>
