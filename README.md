@@ -19,7 +19,6 @@ A Node.js app that checks whether it will rain tomorrow in a selected location u
 ## ⚙️ Installation
 
 - 1. Clone the repo
-- ```bash
 - git clone <your-repo-link>
 - npm install
 - API_KEY=your_api_key_here
