@@ -1,7 +1,6 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
- 
 
 const app = express();
 const API_MAP = "http://api.openweathermap.org/geo/1.0/direct";
@@ -11,7 +10,6 @@ const port = process.env.PORT;
 const mapAPI = process.env.MAP_API;
 const weatherAPI = process.env.WEATHER_API;
 
-
 const dateConverter = (region, city) => {
 let year;
 let yearAPI;
@@ -20,6 +18,7 @@ let monthAPI;
 let day;
 let dayAPI;
 let today = new Date();
+
 const array = (today.toLocaleString("en-US", {
         timeZone: `${region}/${city}`
     })).split(/[/ ,]/);
@@ -66,7 +65,6 @@ app.post("/submit", async (req, res) => {
         });
         const lat = responseMap.data[0].lat;
         const lon = responseMap.data[0].lon;
-        console.log(lat, lon)
         const responseWeather = await axios.get(API_WEATHER, {
             params: {
                 lat: lat,
@@ -79,20 +77,18 @@ app.post("/submit", async (req, res) => {
         for (const element of listArray){
             let spiltElement = element.dt_txt.split(" ");
             if (date === spiltElement[0] && element.rain){
-                rainCheck = 'It will rain';
+                rainCheck = true;
                 break;
             }
-            else {
-               rainCheck = "It won't rain";
-            }
         };
+        const message = rainCheck? "It will rain" : "It will not rain"
 
         res.render("index.ejs", {
-            weather: rainCheck
+            weather: message
         });
     }
     catch(error) {
-        console.error("Failed to make a request: ",error.message? error.message : error);
+        console.error("Failed to make a request: ",error.message || error);
     }
 });
 
